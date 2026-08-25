@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EscapeRoom } from '../../model/escape-room';
 import { EscapeRoomService } from '../../services/escape-room';
@@ -16,7 +16,10 @@ export class EscapeRoomList implements OnInit {
   loadError = false;
   readonly fallbackPhoto = 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80';
 
-  constructor(private escapeRoomService: EscapeRoomService) {}
+  constructor(
+    private escapeRoomService: EscapeRoomService,
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.loadEscapeRooms();
@@ -27,10 +30,12 @@ export class EscapeRoomList implements OnInit {
       next: (rooms) => {
         this.escapeRooms = Array.isArray(rooms) ? rooms : [];
         this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.isLoading = false;
         this.loadError = true;
+        this.changeDetectorRef.detectChanges();
       },
     });
   }
