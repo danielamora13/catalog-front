@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:pages": "ng build --configuration production --base-href /catalog-front/",
+    "deploy:pages": "npm run build:pages && npx angular-cli-ghpages --dir=dist/crud-mongo-front/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:crud-mongo-front": "node dist/crud-mongo-front/server/server.mjs"
