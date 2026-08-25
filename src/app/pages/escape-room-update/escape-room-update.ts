@@ -1,0 +1,72 @@
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { EscapeRoomService } from '../../services/escape-room';
+
+@Component({
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  selector: 'app-escape-room-update',
+  styleUrl: './escape-room-update.css',
+  templateUrl: './escape-room-update.html',
+})
+export class EscapeRoomUpdate implements OnInit {
+  escapeRoomForm: FormGroup;
+  isSubmitting = false;
+  isLoading = true;
+  loadError = false;
+  submitError = '';
+  private roomId = 0;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private escapeRoomService: EscapeRoomService,
+  ) {
+    this.escapeRoomForm = this.formBuilder.nonNullable.group({
+      name: ['', Validators.required],
+      date: ['', Validators.required],
+      city: ['', Validators.required],
+      photo: [''],
+      description: ['', Validators.required],
+    });
+  }
+
+  ngOnInit(): void {
+    this.roomId = Number(this.route.snapshot.paramMap.get('id'));
+    this.escapeRoomService.getEscapeRoom(this.roomId).subscribe({
+      next: (room) => {
+        this.escapeRoomForm.patchValue({
+          name: room.name,
+          date: String(room.date).split('T')[0],
+          city: room.city,
+          photo: room.photo || '',
+          description: room.description,
+        });
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.loadError = true;
+      },
+    });
+  }
+
+  submit(): void {
+    if (this.escapeRoomForm.invalid) {
+      this.escapeRoomForm.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.submitError = '';
+    this.escapeRoomService.updateEscapeRoom(this.roomId, this.escapeRoomForm.getRawValue()).subscribe({
+      next: () => this.router.navigate(['/home/escape-room-detail', this.roomId]),
+      error: () => {
+        this.isSubmitting = false;
+        this.submitError = 'The escape room could not be updated. Please try again.';
+      },
+    });
+  }
+}

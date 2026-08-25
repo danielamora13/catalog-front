@@ -1,0 +1,50 @@
+<div class="app-shell">
+  <aside class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed" aria-label="Sidebar navigation">
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <div class="brand-text">
+        <span class="brand-kicker">Catalog</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <button class="nav-item active" type="button" [routerLink]="['/home/escape-room-list']">
+        <span class="nav-icon">⌂</span>
+        <span>Escape Rooms</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="nav-icon">☰</span>
+        <span>Books</span>
+      </button>
+    </nav>
+
+  </aside>
+
+  <div class="main-panel">
+    <header class="topbar">
+      <button class="toggle-button" type="button" aria-label="Toggle sidebar" (click)="toggleSidebar()">
+        <span class="toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+
+      <div class="topbar-title-group">
+        <p class="eyebrow">Operations</p>
+        <h1>Dashboard</h1>
+      </div>
+
+    </header>
+
+    <main class="content-area">
+      <section *ngIf="isHomeRoute" class="welcome-panel">
+        <p class="eyebrow">Welcome</p>
+        <h2>Welcome to Catalog</h2>
+        <p>Select an option from the sidebar to explore escape rooms and other catalog items.</p>
+      </section>
+
+      <router-outlet *ngIf="!isHomeRoute"></router-outlet>
+    </main>
+  </div>
+</div>

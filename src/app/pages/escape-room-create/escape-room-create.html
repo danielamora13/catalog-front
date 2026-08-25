@@ -1,0 +1,59 @@
+<section class="create-page">
+	<header class="page-header">
+		<div>
+			<p class="eyebrow">Inventory</p>
+			<h2>New escape room</h2>
+		</div>
+		<a class="back-link" [routerLink]="['/home/escape-room-list']">Back to rooms</a>
+	</header>
+
+	<form class="room-form" [formGroup]="escapeRoomForm" (ngSubmit)="submit()">
+		<label>
+			Name
+			<input type="text" formControlName="name" />
+			@if (escapeRoomForm.controls['name'].touched && escapeRoomForm.controls['name'].invalid) {
+				<span class="field-error">Name is required.</span>
+			}
+		</label>
+
+		<label>
+			Date
+			<input type="date" formControlName="date" />
+			@if (escapeRoomForm.controls['date'].touched && escapeRoomForm.controls['date'].invalid) {
+				<span class="field-error">Date is required.</span>
+			}
+		</label>
+
+		<label>
+			City
+			<input type="text" formControlName="city" />
+			@if (escapeRoomForm.controls['city'].touched && escapeRoomForm.controls['city'].invalid) {
+				<span class="field-error">City is required.</span>
+			}
+		</label>
+
+		<label>
+			Photo URL <span class="optional">(optional)</span>
+			<input type="url" formControlName="photo" />
+		</label>
+
+		<label class="full-width">
+			Description
+			<textarea rows="5" formControlName="description"></textarea>
+			@if (escapeRoomForm.controls['description'].touched && escapeRoomForm.controls['description'].invalid) {
+				<span class="field-error">Description is required.</span>
+			}
+		</label>
+
+		@if (submitError) {
+			<p class="submit-error full-width">{{ submitError }}</p>
+		}
+
+		<div class="form-actions full-width">
+			<a class="secondary-button" [routerLink]="['/home/escape-room-list']">Cancel</a>
+			<button class="primary-button" type="submit" [disabled]="isSubmitting">
+				{{ isSubmitting ? 'Creating...' : 'Create room' }}
+			</button>
+		</div>
+	</form>
+</section>

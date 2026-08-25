@@ -1,0 +1,22 @@
+@if (isLoading) {
+	<p>Loading escape room...</p>
+} @else if (escapeRoom) {
+	<section class="detail-page">
+		<a class="back-link" routerLink="/home/escape-room-list">Back to rooms</a>
+		<img class="hero-photo" [src]="getPhotoUrl(escapeRoom.photo)" [alt]="escapeRoom.name" />
+		<div class="detail-content">
+			<div>
+				<p class="eyebrow">{{ escapeRoom.city }}</p>
+				<h2>{{ escapeRoom.name }}</h2>
+				<p class="date-text">{{ escapeRoom.date | date: 'dd MMM yyyy' }}</p>
+				<p class="description">{{ escapeRoom.description }}</p>
+			</div>
+			<a class="primary-button" [routerLink]="['/home/escape-room-edit', escapeRoom.id]">Edit room</a>
+		</div>
+	</section>
+} @else if (loadError) {
+	<section class="empty-state">
+		<h2>Escape room not found</h2>
+		<a class="back-link" routerLink="/home/escape-room-list">Back to rooms</a>
+	</section>
+}
