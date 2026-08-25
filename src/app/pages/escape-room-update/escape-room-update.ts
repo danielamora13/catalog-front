@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EscapeRoomService } from '../../services/escape-room';
@@ -23,6 +23,7 @@ export class EscapeRoomUpdate implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private escapeRoomService: EscapeRoomService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.escapeRoomForm = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
@@ -45,10 +46,12 @@ export class EscapeRoomUpdate implements OnInit {
           description: room.description,
         });
         this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.isLoading = false;
         this.loadError = true;
+        this.changeDetectorRef.detectChanges();
       },
     });
   }
