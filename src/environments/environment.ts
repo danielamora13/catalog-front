@@ -1,3 +1,3 @@
 export const environment = {
-    API_URL: 'http://localhost:8081'
+    API_URL: 'https://daniels--catalog--l8bwlc2zympk.code.run'
 };
