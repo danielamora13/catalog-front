@@ -12,6 +12,8 @@ import { EscapeRoomService } from '../../services/escape-room';
 })
 export class EscapeRoomList implements OnInit {
   escapeRooms: EscapeRoom[] = [];
+  isLoading = true;
+  loadError = false;
   readonly fallbackPhoto = 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80';
 
   constructor(private escapeRoomService: EscapeRoomService) {}
@@ -24,8 +26,12 @@ export class EscapeRoomList implements OnInit {
     this.escapeRoomService.getEscapeRooms().subscribe({
       next: (rooms) => {
         this.escapeRooms = Array.isArray(rooms) ? rooms : [];
+        this.isLoading = false;
       },
-      error: () => undefined,
+      error: () => {
+        this.isLoading = false;
+        this.loadError = true;
+      },
     });
   }
 
