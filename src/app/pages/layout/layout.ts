@@ -20,4 +20,8 @@ export class Layout {
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
 }

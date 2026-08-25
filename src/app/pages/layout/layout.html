@@ -1,7 +1,7 @@
 <div class="app-shell">
   <aside class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed" aria-label="Sidebar navigation">
     <div class="brand">
-      <div class="brand-mark">C</div>
+      <a class="brand-mark" routerLink="/home" aria-label="Ir al inicio">C</a>
       <div class="brand-text">
         <span class="brand-kicker">Catalog</span>
       </div>
@@ -35,6 +35,11 @@
         <h1>Dashboard</h1>
       </div>
 
+      <div class="topbar-actions">
+        <button class="refresh-button" type="button" aria-label="Actualizar página" title="Actualizar página" (click)="reloadPage()">
+          ↻
+        </button>
+      </div>
     </header>
 
     <main class="content-area">
