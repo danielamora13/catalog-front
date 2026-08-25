@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EscapeRoom } from '../../model/escape-room';
 import { EscapeRoomService } from '../../services/escape-room';
@@ -19,6 +19,7 @@ export class EscapeRoomDetail implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private escapeRoomService: EscapeRoomService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -37,10 +38,12 @@ export class EscapeRoomDetail implements OnInit {
         };
         this.escapeRoom = roomResponse.data || roomResponse.escapeRoom || roomResponse;
         this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.isLoading = false;
         this.loadError = true;
+        this.changeDetectorRef.detectChanges();
       },
     });
   }
