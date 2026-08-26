@@ -1,0 +1,64 @@
+<section class="list-page">
+	<header class="list-header">
+		<div>
+			<p class="eyebrow">Inventory</p>
+			<h2>Books</h2>
+		</div>
+		<a class="primary-button" routerLink="/home/book-create">New book</a>
+	</header>
+
+	<label class="search-field">
+		<span>Search books</span>
+		<input
+			type="search"
+			[(ngModel)]="searchTerm"
+			placeholder="Search by name or author"
+			aria-label="Search books by name or author"
+		/>
+	</label>
+
+	<div class="list-toolbar">
+		<div class="view-toggle" aria-label="Choose book view">
+			<button type="button" [class.active]="viewMode === 'cards'" [attr.aria-pressed]="viewMode === 'cards'" (click)="viewMode = 'cards'">
+				Cards
+			</button>
+			<button type="button" [class.active]="viewMode === 'list'" [attr.aria-pressed]="viewMode === 'list'" (click)="viewMode = 'list'">
+				List
+			</button>
+		</div>
+	</div>
+
+	@if (isLoading) {
+		<div class="empty-state">
+			<p>Loading books...</p>
+		</div>
+	} @else if (loadError) {
+		<div class="empty-state error-state">
+			<h3>Unable to load books</h3>
+			<p>Check the API connection and try again.</p>
+		</div>
+	} @else if (filteredBooks.length) {
+		<div class="book-grid" [class.list-view]="viewMode === 'list'">
+			@for (book of filteredBooks; track book.id) {
+				<a class="book-card" [routerLink]="['/home/book-detail', book.id]">
+					<img [src]="getImageUrl(book.image)" [alt]="book.name" />
+					<div class="card-body">
+						<div class="card-top">
+							<h3>{{ book.name }}</h3>
+							@if (book.year) {
+								<span class="year-tag">{{ book.year }}</span>
+							}
+						</div>
+						<p class="author">{{ book.author }}</p>
+						<p class="synopsis">{{ getSynopsisPreview(book.synopsis) }}</p>
+					</div>
+				</a>
+			}
+		</div>
+	} @else {
+		<div class="empty-state">
+			<h3>No books found</h3>
+			<p>No books match "{{ searchTerm }}".</p>
+		</div>
+	}
+</section>

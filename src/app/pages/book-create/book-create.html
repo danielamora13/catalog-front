@@ -1,0 +1,64 @@
+<section class="form-page">
+	<header class="page-header">
+		<div>
+			<p class="eyebrow">Inventory</p>
+			<h2>New book</h2>
+		</div>
+		<a class="back-link" routerLink="/home/book-list">Back to books</a>
+	</header>
+
+	<form class="book-form" [formGroup]="bookForm" (ngSubmit)="submit()">
+		<label>
+			Name
+			<input type="text" formControlName="name" />
+			@if (bookForm.controls['name'].touched && bookForm.controls['name'].invalid) {
+				<span class="field-error">Name is required.</span>
+			}
+		</label>
+
+		<label>
+			Author
+			<input type="text" formControlName="author" />
+			@if (bookForm.controls['author'].touched && bookForm.controls['author'].invalid) {
+				<span class="field-error">Author is required.</span>
+			}
+		</label>
+
+		<label>
+			Year
+			<input type="number" formControlName="year" />
+			@if (bookForm.controls['year'].touched && bookForm.controls['year'].invalid) {
+				<span class="field-error">Year is required.</span>
+			}
+		</label>
+
+		<label>
+			Image URL <span class="optional">(optional)</span>
+			<input type="url" formControlName="image" />
+		</label>
+
+		<label class="full-width">
+			Synopsis
+			<textarea rows="6" formControlName="synopsis"></textarea>
+			@if (bookForm.controls['synopsis'].touched && bookForm.controls['synopsis'].invalid) {
+				<span class="field-error">Synopsis is required.</span>
+			}
+		</label>
+
+		<label class="full-width">
+			Comment <span class="optional">(optional)</span>
+			<textarea rows="4" formControlName="comment"></textarea>
+		</label>
+
+		@if (submitError) {
+			<p class="submit-error full-width">{{ submitError }}</p>
+		}
+
+		<div class="form-actions full-width">
+			<a class="back-link" routerLink="/home/book-list">Cancel</a>
+			<button class="primary-button" type="submit" [disabled]="isSubmitting">
+				{{ isSubmitting ? 'Creating...' : 'Create book' }}
+			</button>
+		</div>
+	</form>
+</section>

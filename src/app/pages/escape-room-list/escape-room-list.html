@@ -7,6 +7,27 @@
     <a class="primary-button" [routerLink]="['/home/escape-room-create']">New room</a>
   </header>
 
+  <div class="list-toolbar">
+    <label class="city-filter">
+      <span>City</span>
+      <select [(ngModel)]="selectedCity">
+        <option value="">All cities</option>
+        @for (city of cities; track city) {
+          <option [value]="city">{{ city }}</option>
+        }
+      </select>
+    </label>
+
+    <div class="view-toggle" aria-label="Choose room view">
+      <button type="button" [class.active]="viewMode === 'cards'" [attr.aria-pressed]="viewMode === 'cards'" (click)="viewMode = 'cards'">
+        Cards
+      </button>
+      <button type="button" [class.active]="viewMode === 'list'" [attr.aria-pressed]="viewMode === 'list'" (click)="viewMode = 'list'">
+        List
+      </button>
+    </div>
+  </div>
+
   @if (isLoading) {
     <div class="empty-state">
       <p>Loading escape rooms...</p>
@@ -16,9 +37,9 @@
       <h3>Unable to load escape rooms</h3>
       <p>Check the API connection and try again.</p>
     </div>
-  } @else if (escapeRooms.length) {
-    <div class="card-grid">
-      @for (room of escapeRooms; track room.id) {
+  } @else if (filteredEscapeRooms.length) {
+    <div class="room-grid" [class.list-view]="viewMode === 'list'">
+      @for (room of filteredEscapeRooms; track room.id) {
         <article class="room-card" [routerLink]="['/home/escape-room-detail', room.id]">
           <img [src]="getPhotoUrl(room.photo)" [alt]="room.name" />
 
@@ -37,7 +58,7 @@
   } @else {
     <div class="empty-state">
       <h3>No escape rooms found</h3>
-      <p>There are no rooms available right now.</p>
+      <p>{{ selectedCity ? 'There are no rooms in this city.' : 'There are no rooms available right now.' }}</p>
     </div>
   }
 </section>

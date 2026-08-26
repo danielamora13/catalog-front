@@ -1,0 +1,35 @@
+@if (isLoading) {
+	<p>Loading book...</p>
+} @else if (book) {
+	<section class="detail-page">
+		<a class="back-link" routerLink="/home/book-list">Back to books</a>
+		<div class="book-detail-layout">
+			<img class="book-image" [src]="getImageUrl(book.image)" [alt]="book.name" />
+			<div class="detail-content">
+				<p class="eyebrow">{{ book.author }}</p>
+				<div class="title-row">
+					<h2>{{ book.name }}</h2>
+					<a class="primary-button" [routerLink]="['/home/book-edit', book.id]">Edit book</a>
+				</div>
+				@if (book.year) {
+					<p class="year-text">{{ book.year }}</p>
+				}
+				<section class="text-section">
+					<h3>Synopsis</h3>
+					<p>{{ book.synopsis || 'No synopsis available.' }}</p>
+				</section>
+				@if (book.comment) {
+					<section class="text-section comment-section">
+						<h3>Comment</h3>
+						<p>{{ book.comment }}</p>
+					</section>
+				}
+			</div>
+		</div>
+	</section>
+} @else if (loadError) {
+	<section class="empty-state">
+		<h2>Book not found</h2>
+		<a class="back-link" routerLink="/home/book-list">Back to books</a>
+	</section>
+}

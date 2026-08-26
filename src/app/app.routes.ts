@@ -4,6 +4,10 @@ import { EscapeRoomList } from './pages/escape-room-list/escape-room-list';
 import { EscapeRoomDetail } from './pages/escape-room-detail/escape-room-detail';
 import { EscapeRoomCreate } from './pages/escape-room-create/escape-room-create';
 import { EscapeRoomUpdate } from './pages/escape-room-update/escape-room-update';
+import { BookList } from './pages/book-list/book-list';
+import { BookDetail } from './pages/book-detail/book-detail';
+import { BookCreate } from './pages/book-create/book-create';
+import { BookUpdate } from './pages/book-update/book-update';
 
 export const routes: Routes = [
     {
@@ -30,6 +34,22 @@ export const routes: Routes = [
             {
                 path: 'escape-room-edit/:id',
                 component: EscapeRoomUpdate
+            },
+            {
+                path: 'book-list',
+                component: BookList
+            },
+            {
+                path: 'book-detail/:id',
+                component: BookDetail
+            },
+            {
+                path: 'book-create',
+                component: BookCreate
+            },
+            {
+                path: 'book-edit/:id',
+                component: BookUpdate
             }
         ]
     }

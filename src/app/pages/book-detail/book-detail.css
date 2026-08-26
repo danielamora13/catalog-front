@@ -1,3 +1,7 @@
+:host {
+	display: block;
+}
+
 .detail-page {
 	display: flex;
 	flex-direction: column;
@@ -10,22 +14,32 @@
 	text-decoration: none;
 }
 
-.hero-photo {
+.book-detail-layout {
+	display: grid;
+	grid-template-columns: minmax(220px, 340px) minmax(0, 680px);
+	gap: 2.5rem;
+	align-items: start;
+}
+
+.book-image {
 	width: 100%;
-	max-height: 560px;
+	max-height: 500px;
 	border-radius: 1.2rem;
-	object-fit: contain;
+	object-fit: cover;
 	display: block;
 	background: rgba(213, 197, 181, 0.35);
 	box-shadow: 0 10px 24px var(--shadow);
 }
 
 .detail-content {
+	padding: 1rem 0;
+}
+
+.title-row {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
-	gap: 2rem;
-	padding: 1.5rem 0;
+	gap: 1rem;
 }
 
 .eyebrow {
@@ -42,16 +56,6 @@ h2 {
 	font-size: clamp(1.8rem, 3vw, 2.8rem);
 }
 
-.date-text {
-	color: var(--muted);
-}
-
-.description {
-	max-width: 680px;
-	color: var(--text);
-	line-height: 1.7;
-}
-
 .primary-button {
 	flex: 0 0 auto;
 	border-radius: 0.9rem;
@@ -62,13 +66,49 @@ h2 {
 	text-decoration: none;
 }
 
+.year-text {
+	color: var(--muted);
+}
+
+.text-section {
+	margin-top: 2rem;
+}
+
+.text-section h3 {
+	margin: 0 0 0.5rem;
+	color: var(--text);
+	font-size: 1rem;
+}
+
+.text-section p {
+	margin: 0;
+	color: var(--text);
+	line-height: 1.7;
+	white-space: pre-line;
+}
+
+.comment-section {
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--line);
+}
+
 .empty-state {
 	padding: 2rem;
 	text-align: center;
 }
 
-@media (max-width: 640px) {
-	.detail-content {
+@media (max-width: 700px) {
+	.book-detail-layout {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.book-image {
+		max-height: 380px;
+	}
+
+	.title-row {
+		align-items: flex-start;
 		flex-direction: column;
 	}
 }
