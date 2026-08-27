@@ -9,7 +9,27 @@
 				<p class="eyebrow">{{ escapeRoom.city }}</p>
 				<h2>{{ escapeRoom.name }}</h2>
 				<p class="date-text">{{ escapeRoom.date | date: 'dd MMM yyyy' }}</p>
-				<p class="description">{{ escapeRoom.description }}</p>
+				@if (escapeRoom.synopsis) {
+					<section class="extra-section">
+						<h3>Synopsis</h3>
+						<p>{{ escapeRoom.synopsis }}</p>
+					</section>
+				}
+				<section class="extra-section">
+					<h3>Comment</h3>
+					<p>{{ escapeRoom.description }}</p>
+				</section>
+				<div class="room-facts">
+					@if (escapeRoom.numPeople) {
+						<span>{{ escapeRoom.numPeople }} people</span>
+					}
+					@if (escapeRoom.difficulty) {
+						<span>{{ escapeRoom.difficulty }}</span>
+					}
+					@if (escapeRoom.time) {
+						<span>{{ escapeRoom.time }} min</span>
+					}
+				</div>
 			</div>
 			<a class="primary-button" [routerLink]="['/home/escape-room-edit', escapeRoom.id]">Edit room</a>
 		</div>

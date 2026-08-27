@@ -31,6 +31,10 @@ export class EscapeRoomUpdate implements OnInit {
       city: ['', Validators.required],
       photo: [''],
       description: ['', Validators.required],
+      synopsis: [''],
+      numPeople: [null],
+      difficulty: [''],
+      time: [null],
     });
   }
 
@@ -44,6 +48,10 @@ export class EscapeRoomUpdate implements OnInit {
           city: room.city,
           photo: room.photo || '',
           description: room.description,
+          synopsis: room.synopsis || '',
+          numPeople: room.numPeople,
+          difficulty: room.difficulty || '',
+          time: room.time,
         });
         this.isLoading = false;
         this.changeDetectorRef.detectChanges();

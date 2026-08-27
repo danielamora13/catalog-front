@@ -50,7 +50,18 @@
             </div>
 
             <p class="date-text">{{ room.date | date: 'dd MMM yyyy' }}</p>
-            <p class="description">{{ room.description }}</p>
+              <p class="description">{{ room.synopsis || room.description }}</p>
+              <div class="room-facts">
+                @if (room.numPeople) {
+                  <span>{{ room.numPeople }} people</span>
+                }
+                @if (room.difficulty) {
+                  <span>{{ room.difficulty }}</span>
+                }
+                @if (room.time) {
+                  <span>{{ room.time }} min</span>
+                }
+              </div>
           </div>
         </article>
       }

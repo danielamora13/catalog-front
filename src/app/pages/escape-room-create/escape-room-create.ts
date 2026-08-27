@@ -27,6 +27,10 @@ export class EscapeRoomCreate {
       city: ['', Validators.required],
       photo: [''],
       description: ['', Validators.required],
+      synopsis: [''],
+      numPeople: [null],
+      difficulty: [''],
+      time: [null],
     });
   }
 

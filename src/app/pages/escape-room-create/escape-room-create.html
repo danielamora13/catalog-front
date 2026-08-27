@@ -45,6 +45,26 @@
 			}
 		</label>
 
+		<label class="full-width">
+			Synopsis <span class="optional">(optional)</span>
+			<textarea rows="4" formControlName="synopsis"></textarea>
+		</label>
+
+		<label>
+			Number of people <span class="optional">(optional)</span>
+			<input type="number" min="0" formControlName="numPeople" />
+		</label>
+
+		<label>
+			Difficulty <span class="optional">(optional)</span>
+			<input type="text" formControlName="difficulty" />
+		</label>
+
+		<label>
+			Time (minutes) <span class="optional">(optional)</span>
+			<input type="number" min="0" formControlName="time" />
+		</label>
+
 		@if (submitError) {
 			<p class="submit-error full-width">{{ submitError }}</p>
 		}

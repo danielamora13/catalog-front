@@ -167,6 +167,32 @@
   overflow: hidden;
 }
 
+.synopsis {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.room-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.room-facts span {
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(77, 133, 98, 0.12);
+  color: #3f6a4c;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
 .room-grid.list-view {
   grid-template-columns: 1fr;
   gap: 0.75rem;
