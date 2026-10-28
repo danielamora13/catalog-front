@@ -1,0 +1,24 @@
+@if (isLoading) {
+  <p class="empty-state">Cargando salida...</p>
+} @else if (outing) {
+  <section class="detail-page">
+    <a class="back-link" routerLink="/home/outing-list">Volver a salidas</a>
+    <img class="hero-photo" [src]="getPhotoUrl(outing.photo)" [alt]="outing.name" />
+    <div class="detail-content">
+      <div class="detail-copy">
+        <p class="eyebrow">{{ outing.type }} · {{ outing.place }}</p>
+        <h2>{{ outing.name }}</h2>
+        <p class="date-text">{{ outing.date | date: 'dd MMM yyyy' }}</p>
+        <section class="extra-section"><h3>Descripción</h3><p>{{ outing.description }}</p></section>
+        @if (outing.difficulty) { <span class="difficulty-tag">Dificultad: {{ outing.difficulty }}</span> }
+        @if (deleteError) { <p class="error-message">{{ deleteError }}</p> }
+      </div>
+      <div class="actions">
+        <a class="primary-button" [routerLink]="['/home/outing-edit', outing.id]">Editar</a>
+        <button class="delete-button" type="button" [disabled]="isDeleting" (click)="deleteOuting()">{{ isDeleting ? 'Eliminando...' : 'Eliminar' }}</button>
+      </div>
+    </div>
+  </section>
+} @else if (loadError) {
+  <section class="empty-state"><h2>No se encontró la salida</h2><a class="back-link" routerLink="/home/outing-list">Volver a salidas</a></section>
+}

@@ -1,0 +1,21 @@
+.create-page { display: flex; flex-direction: column; gap: 1.5rem; }
+.page-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.eyebrow { margin: 0 0 .3rem; color: var(--muted); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+h2 { margin: 0; color: var(--text); font-size: clamp(1.7rem, 2vw, 2.1rem); }
+.back-link, .secondary-button { color: var(--accent-strong); font-weight: 600; text-decoration: none; }
+.outing-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; padding: 1.5rem; background: rgba(255,255,255,.46); border: 1px solid var(--line); border-radius: 1.2rem; box-shadow: 0 10px 24px var(--shadow); }
+label { display: flex; flex-direction: column; gap: .45rem; color: var(--text); font-weight: 600; }
+input, textarea, select { width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: .7rem; padding: .75rem; background: rgba(255,255,255,.7); color: var(--text); font: inherit; }
+textarea { resize: vertical; }
+.full-width { grid-column: 1 / -1; }
+.optional { color: var(--muted); font-size: .8rem; font-weight: 400; }
+.field-error, .submit-error { color: #a44235; font-size: .8rem; font-weight: 500; }
+.submit-error { margin: 0; }
+.type-adder { display: flex; flex-direction: column; gap: .5rem; }
+.inline-control { display: flex; gap: .65rem; }
+.secondary-button { border: 1px solid var(--line); border-radius: .7rem; padding: .7rem 1rem; background: transparent; font: inherit; cursor: pointer; white-space: nowrap; }
+.secondary-button:disabled { opacity: .6; cursor: wait; }
+.form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; }
+.primary-button { border: 0; border-radius: .9rem; padding: .82rem 1.25rem; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: var(--white); font: inherit; font-weight: 600; cursor: pointer; }
+.primary-button:disabled { cursor: wait; opacity: .65; }
+@media (max-width: 640px) { .page-header, .form-actions, .inline-control { align-items: flex-start; flex-direction: column; } .outing-form { grid-template-columns: 1fr; } .full-width { grid-column: auto; } .inline-control, .inline-control input, .inline-control button { width: 100%; } }

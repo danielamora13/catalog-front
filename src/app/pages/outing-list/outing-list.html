@@ -1,0 +1,40 @@
+<section class="list-page">
+  <header class="list-header">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h2>Salidas</h2>
+    </div>
+    <a class="primary-button" routerLink="/home/outing-create">Nueva salida</a>
+  </header>
+
+  @if (isLoading) {
+    <div class="empty-state"><p>Cargando salidas...</p></div>
+  } @else if (loadError) {
+    <div class="empty-state error-state">
+      <h3>No se pudieron cargar las salidas</h3>
+      <p>Comprueba la conexión con la API e inténtalo de nuevo.</p>
+    </div>
+  } @else if (outings.length) {
+    <div class="outing-grid">
+      @for (outing of outings; track outing.id) {
+        <article class="outing-card" [routerLink]="['/home/outing-detail', outing.id]">
+          <img [src]="getPhotoUrl(outing.photo)" [alt]="outing.name" />
+          <div class="card-body">
+            <div class="card-top">
+              <h3>{{ outing.name }}</h3>
+              @if (outing.type) { <span class="type-tag">{{ outing.type }}</span> }
+            </div>
+            <p class="outing-meta">{{ outing.place }} · {{ outing.date | date: 'dd MMM yyyy' }}</p>
+            @if (outing.description) { <p class="description">{{ outing.description }}</p> }
+            @if (outing.difficulty) { <span class="difficulty-tag">{{ outing.difficulty }}</span> }
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <h3>Aún no hay salidas</h3>
+      <p>Crea una salida para añadirla al catálogo.</p>
+    </div>
+  }
+</section>

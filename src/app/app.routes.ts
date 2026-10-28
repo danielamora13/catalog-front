@@ -8,6 +8,10 @@ import { BookList } from './pages/book-list/book-list';
 import { BookDetail } from './pages/book-detail/book-detail';
 import { BookCreate } from './pages/book-create/book-create';
 import { BookUpdate } from './pages/book-update/book-update';
+import { OutingList } from './pages/outing-list/outing-list';
+import { OutingDetail } from './pages/outing-detail/outing-detail';
+import { OutingCreate } from './pages/outing-create/outing-create';
+import { OutingUpdate } from './pages/outing-update/outing-update';
 
 export const routes: Routes = [
     {
@@ -50,6 +54,22 @@ export const routes: Routes = [
             {
                 path: 'book-edit/:id',
                 component: BookUpdate
+            },
+            {
+                path: 'outing-list',
+                component: OutingList
+            },
+            {
+                path: 'outing-detail/:id',
+                component: OutingDetail
+            },
+            {
+                path: 'outing-create',
+                component: OutingCreate
+            },
+            {
+                path: 'outing-edit/:id',
+                component: OutingUpdate
             }
         ]
     }

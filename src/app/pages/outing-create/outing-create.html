@@ -1,0 +1,55 @@
+<section class="create-page">
+  <header class="page-header">
+    <div><p class="eyebrow">Catálogo</p><h2>Nueva salida</h2></div>
+    <a class="back-link" routerLink="/home/outing-list">Volver a salidas</a>
+  </header>
+
+  <form class="outing-form" [formGroup]="outingForm" (ngSubmit)="submit()">
+    <label>Nombre
+      <input type="text" formControlName="name" />
+      @if (outingForm.controls['name'].touched && outingForm.controls['name'].invalid) { <span class="field-error">El nombre es obligatorio.</span> }
+    </label>
+    <label>Fecha
+      <input type="date" formControlName="date" />
+      @if (outingForm.controls['date'].touched && outingForm.controls['date'].invalid) { <span class="field-error">La fecha es obligatoria.</span> }
+    </label>
+    <label>Lugar
+      <input type="text" formControlName="place" />
+      @if (outingForm.controls['place'].touched && outingForm.controls['place'].invalid) { <span class="field-error">El lugar es obligatorio.</span> }
+    </label>
+    <label>Foto <span class="optional">(URL opcional)</span>
+      <input type="url" formControlName="photo" />
+    </label>
+    <label>Dificultad <span class="optional">(opcional)</span>
+      <input type="text" formControlName="difficulty" />
+    </label>
+    <label>Tipo
+      <select formControlName="type">
+        <option value="" disabled>{{ isLoadingTypes ? 'Cargando tipos...' : 'Elige un tipo' }}</option>
+        @for (type of types; track type) { <option [value]="type">{{ type }}</option> }
+      </select>
+      @if (outingForm.controls['type'].touched && outingForm.controls['type'].invalid) { <span class="field-error">Selecciona un tipo.</span> }
+    </label>
+
+    <div class="type-adder full-width">
+      <label for="new-type">Añadir un tipo nuevo</label>
+      <div class="inline-control">
+        <input id="new-type" type="text" [(ngModel)]="newType" [ngModelOptions]="{standalone: true}" placeholder="Nombre del tipo" />
+        <button class="secondary-button" type="button" [disabled]="!newType.trim()" (click)="addType()">
+          Añadir tipo
+        </button>
+      </div>
+      @if (typeError) { <p class="field-error">{{ typeError }}</p> }
+    </div>
+
+    <label class="full-width">Descripción <span class="optional">(opcional)</span>
+      <textarea rows="5" formControlName="description"></textarea>
+    </label>
+
+    @if (submitError) { <p class="submit-error full-width">{{ submitError }}</p> }
+    <div class="form-actions full-width">
+      <a class="back-link" routerLink="/home/outing-list">Cancelar</a>
+      <button class="primary-button" type="submit" [disabled]="isSubmitting">{{ isSubmitting ? 'Creando...' : 'Crear salida' }}</button>
+    </div>
+  </form>
+</section>

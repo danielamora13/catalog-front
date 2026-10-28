@@ -1,0 +1,19 @@
+.detail-page { display: flex; flex-direction: column; gap: 1.2rem; }
+.back-link { width: fit-content; color: var(--accent-strong); font-weight: 600; text-decoration: none; }
+.hero-photo { width: 100%; max-height: 430px; border-radius: 1.2rem; object-fit: cover; background: var(--line); }
+.detail-content { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; padding: 1.5rem; border: 1px solid var(--line); border-radius: 1.2rem; background: rgba(255,255,255,.5); box-shadow: 0 10px 24px var(--shadow); }
+.detail-copy { max-width: 760px; }
+.eyebrow { color: var(--muted); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+h2 { margin: .25rem 0; color: var(--text); font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.date-text { color: var(--muted); }
+.extra-section { margin: 1.5rem 0; }
+.extra-section h3 { margin-bottom: .4rem; }
+.extra-section p { color: var(--muted); line-height: 1.6; white-space: pre-line; }
+.difficulty-tag { display: inline-flex; border-radius: 999px; padding: .35rem .7rem; background: rgba(96,116,87,.12); color: var(--accent-strong); font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.primary-button, .delete-button { border: 0; border-radius: .8rem; padding: .75rem 1rem; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
+.primary-button { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: var(--white); }
+.delete-button { background: #a44235; color: white; }
+.delete-button:disabled { opacity: .6; cursor: wait; }
+.error-message, .empty-state { color: #a44235; }
+@media (max-width: 700px) { .detail-content { flex-direction: column; } }
