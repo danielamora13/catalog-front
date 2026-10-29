@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { OutingService } from '../../services/outing';
 
 @Component({
@@ -41,15 +43,24 @@ export class OutingCreate implements OnInit {
   }
 
   private loadTypes(): void {
-    this.outingService.getTypes().subscribe({
-      next: (response) => {
-        this.types = this.normalizeTypes(response);
+    forkJoin({
+      types: this.outingService.getTypes().pipe(catchError(() => of(null))),
+      outings: this.outingService.getOutings().pipe(catchError(() => of(null))),
+    }).subscribe({
+      next: ({ types, outings }) => {
+        this.types = [...new Set([
+          ...this.normalizeTypes(types),
+          ...this.normalizeTypes(outings),
+        ])].sort((a, b) => a.localeCompare(b));
         this.isLoadingTypes = false;
+        if (types === null && outings === null) {
+          this.typeError = 'No se pudieron cargar tipos existentes; puedes escribir uno nuevo.';
+        }
         this.changeDetectorRef.detectChanges();
       },
       error: () => {
         this.isLoadingTypes = false;
-        this.typeError = 'No se pudieron cargar los tipos desde /types.';
+        this.typeError = 'No se pudieron cargar tipos existentes; puedes escribir uno nuevo.';
         this.changeDetectorRef.detectChanges();
       },
     });
@@ -61,16 +72,20 @@ export class OutingCreate implements OnInit {
       : null;
     const values = Array.isArray(response)
       ? response
-      : Array.isArray(body?.['types'])
-        ? body['types'] as unknown[]
-        : Array.isArray(body?.['data'])
-          ? body['data'] as unknown[]
-          : [];
+      : ['types', 'outings', 'data', 'results']
+        .map((key) => body?.[key])
+        .find(Array.isArray) as unknown[] | undefined ?? [];
     return [...new Set(values.map((item) => {
       if (typeof item === 'string') return item;
       if (item && typeof item === 'object') {
         const value = item as Record<string, unknown>;
-        return String(value['type'] ?? value['name'] ?? '');
+        const type = value['type'];
+        if (typeof type === 'string') return type.trim();
+        if (type && typeof type === 'object') {
+          const nestedType = type as Record<string, unknown>;
+          return String(nestedType['name'] ?? nestedType['type'] ?? '');
+        }
+        return String(value['name'] ?? '');
       }
       return '';
     }).filter(Boolean))].sort((a, b) => a.localeCompare(b));

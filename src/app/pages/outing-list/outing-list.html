@@ -15,8 +15,19 @@
       <p>Comprueba la conexión con la API e inténtalo de nuevo.</p>
     </div>
   } @else if (outings.length) {
+    <div class="list-toolbar">
+      <label class="type-filter">
+        <span>Filtrar por tipo</span>
+        <select [(ngModel)]="selectedType">
+          <option value="">Todos los tipos</option>
+          @for (type of types; track type) { <option [value]="type">{{ type }}</option> }
+        </select>
+      </label>
+    </div>
+
+    @if (filteredOutings.length) {
     <div class="outing-grid">
-      @for (outing of outings; track outing.id) {
+      @for (outing of filteredOutings; track outing.id) {
         <article class="outing-card" [routerLink]="['/home/outing-detail', outing.id]">
           <img [src]="getPhotoUrl(outing.photo)" [alt]="outing.name" />
           <div class="card-body">
@@ -31,6 +42,9 @@
         </article>
       }
     </div>
+    } @else {
+      <div class="empty-state"><h3>No hay salidas de este tipo</h3><p>Prueba a elegir otro tipo.</p></div>
+    }
   } @else {
     <div class="empty-state">
       <h3>Aún no hay salidas</h3>

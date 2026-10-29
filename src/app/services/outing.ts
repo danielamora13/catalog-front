@@ -31,8 +31,8 @@ export class OutingService {
     return this.http.delete<void>(`${this.outingsUrl}/${id}`);
   }
 
-  getTypes(): Observable<unknown[]> {
-    return this.http.get<unknown[]>(this.typesUrl);
+  getTypes(): Observable<unknown> {
+    return this.http.get<unknown>(this.typesUrl);
   }
 
 }
